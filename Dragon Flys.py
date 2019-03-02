@@ -104,13 +104,13 @@ while not game_over:
 
 if event.key == pygame.K_ESCAPE:
 			pygame.quit() # event to exit game
-     if event.key == pygame.K_LEFT: # move left
+         if event.key == pygame.K_LEFT:
 				x -= player_size
-	     elif event.key == pygame.K_RIGHT: # move right
+	     if event.key == pygame.K_RIGHT: # move right
 				x += player_size
-	     elif event.key == pygame.K_UP: # move up
+	     if event.key == pygame.K_UP: # move up
 				y -= player_size
-      	 elif event.key == pygame.K_DOWN: # move down
+      	 if event.key == pygame.K_DOWN: # move down
 				y += player_size
 
 		player_pos = [x,y]
