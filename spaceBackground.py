@@ -1,15 +1,43 @@
 import pygame
 import pygame.gfxdraw
 import random
+import pygameUtils
+
+ASSETS = {
+    'images': {
+        'stars': {},
+        'asteroids': {}
+    }
+}
+ASSETS['images']['stars']['raw'] = [pygame.image.load('star_red.bmp')]
+ASSETS['images']['stars']['sizes'] = ((16, 16), (24, 24), (32, 32), (40, 40), (48, 48))
+ASSETS['images']['stars']['trans'] = []
+
+ASSETS['images']['asteroids']['raw'] = [pygame.image.load('star_blue.bmp')]
+ASSETS['images']['asteroids']['sizes'] = ((16, 16), (24, 24), (32, 32), (40, 40), (48, 48))
+ASSETS['images']['asteroids']['trans'] = []
+
+for raw_image in ASSETS['images']['stars']['raw']:
+    for size in ASSETS['images']['stars']['sizes']:
+        transformed = {'image': pygame.transform.scale(raw_image, size), 'size': size}
+        ASSETS['images']['stars']['trans'].append(transformed)
+
+for raw_image in ASSETS['images']['asteroids']['raw']:
+    for size in ASSETS['images']['asteroids']['sizes']:
+        transformed = {'image': pygame.transform.scale(raw_image, size), 'size': size}
+        ASSETS['images']['asteroids']['trans'].append(transformed)
+
+
 
 class Item(object):
 
-    def __init__(self, x, y, length, vel, color):
+    def __init__(self, x, y, length, vel, image, alpha):
         self.x = x
         self.y = y
         self.vel = vel
         self.length = length
-        self.color = color
+        self.image = image
+        self.alpha = alpha
 
     def move(self):
         self.y = self.y + self.vel
@@ -17,24 +45,18 @@ class Item(object):
 class Asteroid(Item):
 
     def draw(self, screen):
-        pygame.gfxdraw.box(screen, pygame.Rect(self.x,self.y,self.length,self.length), self.color)
+        pygameUtils.blit_alpha(screen, self.image, (self.x, self.y), self.alpha)
 
 class Star(Item):
     
     def draw(self, screen):
-        x1 = self.x
-        y1 = self.y + self.length
-        x2 = self.x + self.length // 2
-        y2 = self.y
-        x3 = self.x + self.length
-        y3 = self.y + self.length
-        pygame.gfxdraw.filled_trigon(screen, x1, y1, x2, y2, x3, y3, self.color)
+        pygameUtils.blit_alpha(screen, self.image, (self.x, self.y), self.alpha)
 
 
 
 class SpaceBackground(object):
 
-    def __init__(self, scale, screen):
+    def __init__(self, screen, scale, beginLimit):
 
         self.scale = scale
         self.screen = screen
@@ -45,41 +67,43 @@ class SpaceBackground(object):
         self.asteroids = []
         self.stars = []
 
+        self.SCALED_ASSETS = ASSETS
+        if(self.scale != 1):
+            for i in range(0, len(self.SCALED_ASSETS['images']['stars']['trans'])):
+                image = self.SCALED_ASSETS['images']['stars']['trans'][i]
+                size = (image['size'][0] * self.scale, image['size'][0] * self.scale)
+                size = (int(size[0]), int(size[1]))
+                self.SCALED_ASSETS['images']['stars']['trans'][i] = {'image': pygame.transform.scale(image['image'], size), 'size': size}
+            for i in range(0, len(self.SCALED_ASSETS['images']['asteroids']['trans'])):
+                image = self.SCALED_ASSETS['images']['asteroids']['trans'][i]
+                size = (image['size'][0] * self.scale, image['size'][0] * self.scale)
+                size = (int(size[0]), int(size[1]))
+                self.SCALED_ASSETS['images']['asteroids']['trans'][i] = {'image': pygame.transform.scale(image['image'], size), 'size': size}
+
         # ------------ INNER SETTINGS ------------
 
         # maximum count for items
         self.asteroidCount = 30
         self.starCount = 30
 
-        # size range of items
-        self.asteroidBound = (30, 60)
-        self.starBound = (70, 100)
-
         # velocity range of items
-        self.velAsteroidBound = (15, 30)
-        self.velStarBound = (5, 15)
+        self.velAsteroidBound = (10, 30)
+        self.velStarBound = (5, 9)
 
         # opacity range of items
-        self.opAsteroidBound = (50, 80)
-        self.opStarBound = (30, 40)
-
-        # items colors, asteroid only has one, star can be random one in list
-        self.colorAsteroid = (255, 255, 255)
-        self.colorStar = ((255, 0, 0), (0, 255, 0), (255, 102, 0), (255, 255, 0))
+        self.opAsteroidBound = (100, 120)
+        self.opStarBound = (50, 80)
 
         # limit respawn of items
         self.asteroidAddWait = 10
         self.starAddWait = 20
 
         # beginning draw
-        self.beginLimit = 50
+        self.beginLimit = beginLimit
         
         # ------------ INNER SETTINGS END ------------
 
         # scaling
-
-        self.asteroidBound = (int(self.asteroidBound[0] * scale), int(self.asteroidBound[1] * scale))
-        self.starBound = (int(self.starBound[0] * scale), int(self.starBound[1] * scale))
         self.velAsteroidBound = (int(self.velAsteroidBound[0] * scale), int(self.velAsteroidBound[1] * scale))
         self.velStarBound = (int(self.velStarBound[0] * scale), int(self.velStarBound[1] * scale))
 
@@ -114,29 +138,28 @@ class SpaceBackground(object):
 
         if len(self.asteroids) < self.asteroidCount and self.asteroidWait == 0:
             
-            aLength = random.randint(self.asteroidBound[0], self.asteroidBound[1])
+            aImage = self.SCALED_ASSETS['images']['asteroids']['trans'][ random.randint(0, len(self.SCALED_ASSETS['images']['asteroids']['trans'])-1) ]
+            aLength = aImage['size'][0]
             aVel = random.randint(self.velAsteroidBound[0], self.velAsteroidBound[1])
             aOp = self.opAsteroidBound[0] + (self.opAsteroidBound[1] - self.opAsteroidBound[0]) * (self.velAsteroidBound[1] - aVel) // int(self.velAsteroidBound[1] - self.velAsteroidBound[0])
 
             aX = random.randint(0, self.width - aLength)
             aY = 0 - aLength
-            aColor = (self.colorAsteroid[0], self.colorAsteroid[1], self.colorAsteroid[2], aOp)
 
-            aI = Asteroid(aX, aY, aLength, aVel, aColor)
+            aI = Asteroid(aX, aY, aLength, aVel, aImage['image'], aOp)
             self.asteroids.append(aI)
 
         if len(self.stars) < self.starCount and self.starWait == 0:
             
-            sLength = random.randint(self.starBound[0], self.starBound[1])
+            sImage = self.SCALED_ASSETS['images']['stars']['trans'][ random.randint(0, len(self.SCALED_ASSETS['images']['stars']['trans']) - 1) ]
+            sLength = sImage['size'][0]
             sVel = random.randint(self.velStarBound[0], self.velStarBound[1])
             sOp = self.opStarBound[0] + (self.opStarBound[1] - self.opStarBound[0]) * (self.velStarBound[1] - sVel) // int(self.velStarBound[1] - self.velStarBound[0])
 
             sX = random.randint(0, self.width - sLength)
             sY = 0 - sLength
-            sColor = self.colorStar[random.randint(0, len(self.colorStar) - 1)]
-            sColor = (sColor[0], sColor[1], sColor[2], sOp)
 
-            sI = Star(sX, sY, sLength, sVel, sColor)
+            sI = Star(sX, sY, sLength, sVel, sImage['image'], sOp)
             self.stars.append(sI)
 
     # move items by velocity
