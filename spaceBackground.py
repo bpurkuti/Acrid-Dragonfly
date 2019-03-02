@@ -56,12 +56,12 @@ class SpaceBackground(object):
         self.starBound = (70, 100)
 
         # velocity range of items
-        self.velAsteroidBound = (10, 30)
-        self.velStarBound = (5, 9)
+        self.velAsteroidBound = (15, 30)
+        self.velStarBound = (5, 15)
 
         # opacity range of items
-        self.opAsteroidBound = (30, 80)
-        self.opStarBound = (10, 30)
+        self.opAsteroidBound = (50, 80)
+        self.opStarBound = (30, 40)
 
         # items colors, asteroid only has one, star can be random one in list
         self.colorAsteroid = (255, 255, 255)
@@ -72,7 +72,7 @@ class SpaceBackground(object):
         self.starAddWait = 20
 
         # beginning draw
-        self.beginLimit = 500
+        self.beginLimit = 50
         
         # ------------ INNER SETTINGS END ------------
 
