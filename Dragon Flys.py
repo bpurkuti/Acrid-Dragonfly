@@ -36,7 +36,7 @@ myFont = pygame.font.SysFont("arial", 35)
 def set_level(score, SPEED):
 	SPEED = (score/5)+10
 	return SPEED
-	
+
 def drop_enemies(enemy_list):
 	delay = random.random()
 	if len(enemy_list) < 10 and delay < 0.1:
@@ -89,8 +89,12 @@ while not game_over:
 			pygame.quit()
 		if keys[pygame.K_a] or keys[pygame.K_LEFT]:
 			x -= player_size
-		elif keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+		if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
 			x += player_size
+		if keys[pygame.K_w] or keys[pygame.K_UP]:
+			y -= player_size
+		if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+			y += player_size
 
 		player_pos = [x,y]
 
