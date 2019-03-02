@@ -39,20 +39,30 @@ pygame.mixer.music.load("song.mp3")
 pygame.mixer.music.set_volume(0.5) # volume of the son
 pygame.mixer.music.play(-1) #loop the song
 
-space = pygame.image.load('space.png')
-#here we add if the scale is not K_RIGHT
 
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('The Acrid Dragon Flys')
 clock = pygame.time.Clock()
+space = pygame.image.load('space.png')
+
 
 
 myFont = pygame.font.SysFont("arial", 35)
 
 def set_level(score, SPEED):
-	SPEED = (score/5)+10
+	if score < 20:
+		SPEED = 10
+	elif score < 40:
+		SPEED = 20
+	elif score < 60:
+	 SPEED = 30
+	else:
+		SPEED = 40
 	return SPEED
+
+
+
 
 def drop_enemies(enemy_list):
 	delay = random.random()
@@ -99,21 +109,24 @@ while not game_over:
 			sys.exit()
 
 		if event.type == pygame.KEYDOWN:
+
 			x = player_pos[0]
 			y = player_pos[1]
 
-if event.key == pygame.K_ESCAPE:
-			pygame.quit() # event to exit game
-         if event.key == pygame.K_LEFT:
+			if event.key == pygame.K_ESCAPE:
+				pygame.quit()
+			if event.key == pygame.K_LEFT:
 				x -= player_size
-	     if event.key == pygame.K_RIGHT: # move right
+			elif event.key == pygame.K_RIGHT:
 				x += player_size
-	     if event.key == pygame.K_UP: # move up
+			elif event.key == pygame.K_UP:
 				y -= player_size
-      	 if event.key == pygame.K_DOWN: # move down
+			elif event.key == pygame.K_DOWN:
 				y += player_size
 
-		player_pos = [x,y]
+
+			player_pos = [x,y]
+
 
 	screen.fill(BACKGROUND_COLOR)
 
