@@ -5,7 +5,7 @@ import sys
 pygame.init()
 
 WIDTH = 800
-HEIGHT = 800
+HEIGHT = 600
 
 RED = (255,0,0)
 BLUE = (0,0,255)
@@ -19,19 +19,18 @@ enemy_size = 50
 enemy_pos = [random.randint(0,WIDTH-enemy_size), 0]
 enemy_list = [enemy_pos]
 
-SPEED = 50
+SPEED = 10
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('The Acrid Dragon Flys')
 
 game_over = False
+
 score = 0
+
 clock = pygame.time.Clock()
-myFont = pygame.font.SysFont("arial", 35)
 
-
-
-
+myFont = pygame.font.SysFont("monospace", 35)
 
 def set_level(score, SPEED):
 	if score < 20:
@@ -95,6 +94,9 @@ while not game_over:
 			x = player_pos[0]
 			y = player_pos[1]
 
+			if event.key == pygame.K_ESCAPE:
+				pygame.quit()
+				
 			if event.key == pygame.K_LEFT:
 				x -= player_size
 			elif event.key == pygame.K_RIGHT:
@@ -108,7 +110,7 @@ while not game_over:
 	score = update_enemy_positions(enemy_list, score)
 	SPEED = set_level(score, SPEED)
 
-	text = "MY Score: " + str(score)
+	text = "Score:" + str(score)
 	label = myFont.render(text, 1, YELLOW)
 	screen.blit(label, (WIDTH-200, HEIGHT-40))
 
