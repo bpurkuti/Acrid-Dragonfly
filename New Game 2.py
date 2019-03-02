@@ -5,12 +5,13 @@ import sys
 pygame.init()
 
 WIDTH = 800
-HEIGHT = 600
+HEIGHT = 800
 
 RED = (255,0,0)
 BLUE = (0,0,255)
 YELLOW = (255,255,0)
-BACKGROUND_COLOR = (0,0,0)
+darkBlue = (0,0,128)
+BACKGROUND_COLOR = (152,245,255)
 
 player_size = 50
 player_pos = [WIDTH/2, HEIGHT-2*player_size]
@@ -30,20 +31,19 @@ score = 0
 
 clock = pygame.time.Clock()
 
-myFont = pygame.font.SysFont("monospace", 35)
+myFont = pygame.font.SysFont("arial", 35)
 
 def set_level(score, SPEED):
 	if score < 20:
-		SPEED = 5
+		SPEED = 10
 	elif score < 40:
-		SPEED = 8
+		SPEED = 20
 	elif score < 60:
-		SPEED = 12
+		SPEED = 30
 	else:
-		SPEED = 15
+		SPEED = 40
 	return SPEED
 	# SPEED = score/5 + 1
-
 
 def drop_enemies(enemy_list):
 	delay = random.random()
@@ -96,7 +96,6 @@ while not game_over:
 
 			if event.key == pygame.K_ESCAPE:
 				pygame.quit()
-				
 			if event.key == pygame.K_LEFT:
 				x -= player_size
 			elif event.key == pygame.K_RIGHT:
@@ -110,8 +109,8 @@ while not game_over:
 	score = update_enemy_positions(enemy_list, score)
 	SPEED = set_level(score, SPEED)
 
-	text = "Score:" + str(score)
-	label = myFont.render(text, 1, YELLOW)
+	text = "My Score: " + str(score)
+	label = myFont.render(text, 1, darkBlue)
 	screen.blit(label, (WIDTH-200, HEIGHT-40))
 
 	if collision_check(enemy_list, player_pos):
@@ -120,7 +119,7 @@ while not game_over:
 
 	draw_enemies(enemy_list)
 
-	pygame.draw.rect(screen, RED, (player_pos[0], player_pos[1], player_size, player_size))
+	pygame.draw.ellipse(screen, RED, (player_pos[0], player_pos[1], player_size, player_size))
 
 	clock.tick(30)
 

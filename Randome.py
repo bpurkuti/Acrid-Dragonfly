@@ -1,6 +1,6 @@
 import pygame
-import random
 import sys
+from pygame.locals import *
 
 pygame.init()
 
@@ -9,11 +9,13 @@ WHITE = ( 255, 255, 255)
 GREEN = ( 0, 255, 0)
 RED = ( 255, 0, 0)
 
-size = (700, 500)
+size = (800, 800)
 screen = pygame.display.set_mode(size)
 screen.fill(RED)
 pygame.display.update()
 pygame.display.set_caption('The Acrid Dragon Flys')
+
+
 
 # The loop will carry on until the user exit the game (e.g. clicks the close button).
 carryOn = True
