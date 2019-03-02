@@ -1,17 +1,27 @@
 import pygame
 import random
 import sys
+import time
+import pyglet
+from os import path
+import string
 
+## initialize pygame and create window
+pygame.mixer.init()
 pygame.init()
 
-WIDTH = 800
+Sound = path.join(path.dirname(__file__), 'assets') # foler for sound
+Pictures = path.join(path.dirname(__file__), 'sounds') # folder for images
+
+WIDTH = 1000
 HEIGHT = 800
 
 RED = (255,0,0)
 BLUE = (0,0,255)
 YELLOW = (255,255,0)
 darkBlue = (0,0,128)
-BACKGROUND_COLOR = (152,245,255)
+BACKGROUND_COLOR = (155,205,155)
+gray = (128,128,128)
 
 player_size = 50
 player_pos = [WIDTH/2, HEIGHT-2*player_size]
@@ -21,20 +31,34 @@ enemy_pos = [random.randint(0,WIDTH-enemy_size), 0]
 enemy_list = [enemy_pos]
 
 SPEED = 10
+game_over = False
+score = 0
+
+# Play background music
+pygame.mixer.music.load("song.mp3")
+pygame.mixer.music.set_volume(0.5) # volume of the son
+pygame.mixer.music.play(-1) #loop the song
+
+
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('The Acrid Dragon Flys')
-
-game_over = False
-
-score = 0
-
 clock = pygame.time.Clock()
+space = pygame.image.load('space.png')
+
+
 
 myFont = pygame.font.SysFont("arial", 35)
 
 def set_level(score, SPEED):
-	SPEED = (score/5)+10
+	if score < 20:
+		SPEED = 10
+	elif score < 40:
+		SPEED = 20
+	elif score < 60:
+	 SPEED = 30
+	else:
+		SPEED = 40
 	return SPEED
 
 def drop_enemies(enemy_list):
@@ -81,22 +105,24 @@ while not game_over:
 		if event.type == pygame.QUIT:
 			sys.exit()
 
-		keys=pygame.key.get_pressed()
-		x = player_pos[0]
-		y = player_pos[1]
+		if event.type == pygame.KEYDOWN:
 
-		if keys[pygame.K_ESCAPE]:
-			pygame.quit()
-		if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-			x -= player_size
-		if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-			x += player_size
-		if keys[pygame.K_w] or keys[pygame.K_UP]:
-			y -= player_size
-		if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-			y += player_size
+			x = player_pos[0]
+			y = player_pos[1]
 
-		player_pos = [x,y]
+			if event.key == pygame.K_ESCAPE:
+				pygame.quit()
+			if event.key == pygame.K_LEFT:
+				x -= player_size
+			elif event.key == pygame.K_RIGHT:
+				x += player_size
+			elif event.key == pygame.K_UP:
+				y -= player_size
+			elif event.key == pygame.K_DOWN:
+				y += player_size
+
+			player_pos = [x,y]
+
 
 	screen.fill(BACKGROUND_COLOR)
 
@@ -106,7 +132,7 @@ while not game_over:
 
 	text = "My Score: " + str(score)
 	label = myFont.render(text, 1, darkBlue)
-	screen.blit(label, (WIDTH-200, HEIGHT-40))
+	screen.blit(label, (WIDTH-150, HEIGHT-30))
 
 	if collision_check(enemy_list, player_pos):
 		game_over = True
