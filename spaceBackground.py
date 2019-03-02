@@ -35,49 +35,84 @@ class Star(Item):
 class SpaceBackground(object):
 
     def __init__(self, scale, screen):
-        self.scale = scale
 
+        self.scale = scale
         self.screen = screen
 
+        # screen width, height, and lists for holding asteroid and stars
         self.width = screen.get_width()
         self.height = screen.get_height()
         self.asteroids = []
         self.stars = []
 
+        # ------------ INNER SETTINGS ------------
+
+        # maximum count for items
         self.asteroidCount = 30
         self.starCount = 30
 
+        # size range of items
         self.asteroidBound = (30, 60)
         self.starBound = (70, 100)
 
-        self.velAsteroidBound = (3, 8)
-        self.velStarBound = (1, 4)
+        # velocity range of items
+        self.velAsteroidBound = (10, 30)
+        self.velStarBound = (5, 9)
 
-        self.opAsteroidBound = (10, 80)
-        self.opStarBound = (10, 50)
+        # opacity range of items
+        self.opAsteroidBound = (30, 80)
+        self.opStarBound = (10, 30)
 
+        # items colors, asteroid only has one, star can be random one in list
         self.colorAsteroid = (255, 255, 255)
         self.colorStar = ((255, 0, 0), (0, 255, 0), (255, 102, 0), (255, 255, 0))
+
+        # limit respawn of items
+        self.asteroidAddWait = 10
+        self.starAddWait = 20
+
+        # beginning draw
+        self.beginLimit = 500
+        
+        # ------------ INNER SETTINGS END ------------
+
+        # scaling
 
         self.asteroidBound = (int(self.asteroidBound[0] * scale), int(self.asteroidBound[1] * scale))
         self.starBound = (int(self.starBound[0] * scale), int(self.starBound[1] * scale))
         self.velAsteroidBound = (int(self.velAsteroidBound[0] * scale), int(self.velAsteroidBound[1] * scale))
         self.velStarBound = (int(self.velStarBound[0] * scale), int(self.velStarBound[1] * scale))
-    
 
+        self.asteroidWait = 0
+        self.starWait = 0
+    
+        self.limitCounter = 0
+        self.canDraw = False
+
+    # delete items outside of window
     def checkItems(self):
 
-        for asteroid in self.asteroids:
-            if(asteroid.y + asteroid.length > self.height):
-                self.asteroids.remove(asteroid)
-
-        for star in self.stars:
+        iOff = 0
+        for i in range(0, len(self.stars)):
+            star = self.stars[i - iOff]
             if(star.y + star.length > self.height):
-                self.stars.remove(star)
+                del self.stars[i - iOff]
+                iOff = iOff + 1
 
+        jOff = 0
+        for j in range(0, len(self.asteroids)):
+            asteroid = self.asteroids[j - jOff]
+            if(asteroid.y + asteroid.length > self.height):
+                del self.asteroids[j - jOff]
+                jOff = jOff + 1 
+
+    # handling respawn of items
     def addItems(self):
 
-        for i in range(len(self.asteroids), self.asteroidCount):
+        self.starWait = (self.starWait + 1) % self.starAddWait
+        self.asteroidWait = (self.asteroidWait + 1) % self.asteroidAddWait
+
+        if len(self.asteroids) < self.asteroidCount and self.asteroidWait == 0:
             
             aLength = random.randint(self.asteroidBound[0], self.asteroidBound[1])
             aVel = random.randint(self.velAsteroidBound[0], self.velAsteroidBound[1])
@@ -90,7 +125,7 @@ class SpaceBackground(object):
             aI = Asteroid(aX, aY, aLength, aVel, aColor)
             self.asteroids.append(aI)
 
-        for j in range(len(self.stars), self.starCount):
+        if len(self.stars) < self.starCount and self.starWait == 0:
             
             sLength = random.randint(self.starBound[0], self.starBound[1])
             sVel = random.randint(self.velStarBound[0], self.velStarBound[1])
@@ -104,6 +139,7 @@ class SpaceBackground(object):
             sI = Star(sX, sY, sLength, sVel, sColor)
             self.stars.append(sI)
 
+    # move items by velocity
     def moveItems(self):
 
         for asteroid in self.asteroids:
@@ -112,15 +148,8 @@ class SpaceBackground(object):
         for star in self.stars:
             star.move()
 
-    def updateItems(self):
-
-        self.moveItems()
-        self.checkItems()
-        self.addItems()
-        self.draw()
-
+    # drawing items onto screen
     def draw(self):
-
 
         for asteroid in self.asteroids:
             asteroid.draw(self.screen)
@@ -130,3 +159,25 @@ class SpaceBackground(object):
             star.draw(self.screen)
             #s = star
             #print(s.x,s.y,s.length,s.color,s.vel)
+
+        #print(len(self.stars))
+
+        #if(len(self.stars) == 30):
+            #for s in self.stars:
+                #print(s.x,s.y,s.length,s.color,s.vel)
+            #sys.exit()
+
+    # update items
+    def updateItems(self):
+
+        if(not self.canDraw):
+            if(self.limitCounter > self.beginLimit):
+                self.canDraw = True
+            else:
+                self.limitCounter = self.limitCounter + 1
+
+        self.moveItems()
+        self.checkItems()
+        self.addItems()
+        if(self.canDraw):
+            self.draw()
