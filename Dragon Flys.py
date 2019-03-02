@@ -34,17 +34,9 @@ clock = pygame.time.Clock()
 myFont = pygame.font.SysFont("arial", 35)
 
 def set_level(score, SPEED):
-	if score < 20:
-		SPEED = 10
-	elif score < 40:
-		SPEED = 20
-	elif score < 60:
-		SPEED = 30
-	else:
-		SPEED = 40
+	SPEED = (score/5)+10
 	return SPEED
-	# SPEED = score/5 + 1
-
+	
 def drop_enemies(enemy_list):
 	delay = random.random()
 	if len(enemy_list) < 10 and delay < 0.1:
@@ -89,19 +81,18 @@ while not game_over:
 		if event.type == pygame.QUIT:
 			sys.exit()
 
-		if event.type == pygame.KEYDOWN:
+		keys=pygame.key.get_pressed()
+		x = player_pos[0]
+		y = player_pos[1]
 
-			x = player_pos[0]
-			y = player_pos[1]
+		if keys[pygame.K_ESCAPE]:
+			pygame.quit()
+		if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+			x -= player_size
+		elif keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+			x += player_size
 
-			if event.key == pygame.K_ESCAPE:
-				pygame.quit()
-			if event.key == pygame.K_LEFT:
-				x -= player_size
-			elif event.key == pygame.K_RIGHT:
-				x += player_size
-
-			player_pos = [x,y]
+		player_pos = [x,y]
 
 	screen.fill(BACKGROUND_COLOR)
 
