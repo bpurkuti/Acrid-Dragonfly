@@ -13,7 +13,7 @@ ASSETS['images']['stars']['raw'] = [pygame.image.load('star_blue.bmp'), pygame.i
 ASSETS['images']['stars']['sizes'] = ((16, 16), (24, 24), (32, 32))
 ASSETS['images']['stars']['trans'] = []
 
-ASSETS['images']['asteroids']['raw'] = [pygame.image.load('asteroid.bmp')]
+ASSETS['images']['asteroids']['raw'] = [pygame.image.load('asteroid.bmp'), pygame.image.load('gameSprites/asteroid2.png'),pygame.image.load('gameSprites/asteroid3.png') ]
 ASSETS['images']['asteroids']['sizes'] = ((16, 16), (24, 24), (32, 32), (40, 40))
 ASSETS['images']['asteroids']['trans'] = []
 
@@ -48,7 +48,7 @@ class Asteroid(Item):
         pygameUtils.blit_alpha(screen, self.image, (self.x, self.y), self.alpha)
 
 class Star(Item):
-    
+
     def draw(self, screen):
         pygameUtils.blit_alpha(screen, self.image, (self.x, self.y), self.alpha)
 
@@ -76,6 +76,7 @@ class SpaceBackground(object):
                 image = pygame.transform.scale(image['image'], size)
                 image = pygame.transform.rotate(image, random.randint(0, 359))
                 self.SCALED_ASSETS['images']['stars']['trans'][i] = {'image': image, 'size': size}
+
             for i in range(0, len(self.SCALED_ASSETS['images']['asteroids']['trans'])):
                 image = self.SCALED_ASSETS['images']['asteroids']['trans'][i]
                 size = (image['size'][0] * self.scale, image['size'][0] * self.scale)
@@ -87,16 +88,16 @@ class SpaceBackground(object):
         # ------------ INNER SETTINGS ------------
 
         # maximum count for items
-        self.asteroidCount = 30
-        self.starCount = 30
+        self.asteroidCount = 3
+        self.starCount = 20
 
         # velocity range of items
         self.velAsteroidBound = (2,4)
         self.velStarBound = (2,4)
 
         # opacity range of items
-        self.opAsteroidBound = (30, 50)
-        self.opStarBound = (30, 50)
+        self.opAsteroidBound = (70, 100)
+        self.opStarBound = (50,70)
 
         # limit respawn of items
         self.asteroidAddWait = 10
@@ -104,7 +105,7 @@ class SpaceBackground(object):
 
         # beginning draw
         self.beginLimit = beginLimit
-        
+
         # ------------ INNER SETTINGS END ------------
 
         # scaling
@@ -113,7 +114,7 @@ class SpaceBackground(object):
 
         self.asteroidWait = 0
         self.starWait = 0
-    
+
         self.limitCounter = 0
         self.canDraw = False
 
@@ -132,7 +133,7 @@ class SpaceBackground(object):
             asteroid = self.asteroids[j - jOff]
             if(asteroid.y + asteroid.length > self.height):
                 del self.asteroids[j - jOff]
-                jOff = jOff + 1 
+                jOff = jOff + 1
 
     # handling respawn of items
     def addItems(self):
@@ -141,7 +142,7 @@ class SpaceBackground(object):
         self.asteroidWait = (self.asteroidWait + 1) % self.asteroidAddWait
 
         if len(self.asteroids) < self.asteroidCount and self.asteroidWait == 0:
-            
+
             aImage = self.SCALED_ASSETS['images']['asteroids']['trans'][ random.randint(0, len(self.SCALED_ASSETS['images']['asteroids']['trans'])-1) ]
             aLength = aImage['size'][0]
             aVel = random.randint(self.velAsteroidBound[0], self.velAsteroidBound[1])
@@ -154,7 +155,7 @@ class SpaceBackground(object):
             self.asteroids.append(aI)
 
         if len(self.stars) < self.starCount and self.starWait == 0:
-            
+
             sImage = self.SCALED_ASSETS['images']['stars']['trans'][ random.randint(0, len(self.SCALED_ASSETS['images']['stars']['trans']) - 1) ]
             sLength = sImage['size'][0]
             sVel = random.randint(self.velStarBound[0], self.velStarBound[1])
