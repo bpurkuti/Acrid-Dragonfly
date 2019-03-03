@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Hack Merced 2019
 Team: Acrid Dragonfly
 Members: 
@@ -5,3 +6,12 @@ Members:
 2. Daniel Ochoa
 3. Eshant Prakash
 4. Jaime Rivera
+=======
+<<<<<<< Updated upstream
+
+=======
+# acriddragonfly
+jaiem
+eshant
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
