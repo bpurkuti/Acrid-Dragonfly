@@ -123,7 +123,6 @@ while not game_over:
 
 			player_pos = [x,y]
 
-
 	screen.fill(BACKGROUND_COLOR)
 
 	drop_enemies(enemy_list)
