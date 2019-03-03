@@ -13,7 +13,7 @@ ASSETS['images']['stars']['raw'] = [pygame.image.load('bg/star_blue.bmp'), pygam
 ASSETS['images']['stars']['sizes'] = ((12, 12), (16, 16), (20, 20))
 ASSETS['images']['stars']['trans'] = []
 
-ASSETS['images']['asteroids']['raw'] = [pygame.image.load('bg/asteroid.bmp'), pygame.image.load('bg/asteroid2.png'), pygame.image.load('bg/asteroid3.png')]
+ASSETS['images']['asteroids']['raw'] = [pygame.image.load('bg/asteroid4.png'), pygame.image.load('bg/asteroid2.png'), pygame.image.load('bg/asteroid3.png')]
 ASSETS['images']['asteroids']['sizes'] = ((16, 16), (24, 24), (32, 32), (40, 40), (48, 48))
 ASSETS['images']['asteroids']['trans'] = []
 
