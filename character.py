@@ -43,7 +43,7 @@ class player(object):
 
         if self.down:
             win.blit(downSprite[self.spriteLoop], (self.x,self.y))
-            
+
         if self.left==False and self.right==False and self.up==False and self.down==False:
             win.blit(stillFrame, (self.x,self.y))
             self.left = False
