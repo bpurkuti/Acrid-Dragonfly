@@ -31,7 +31,7 @@ p1= player(300,410,64,64)
 running = True
 while running:
     #FPS
-    clock.tick(30)
+    clock.tick(100)
 
     screen.fill((24,24,24))
 
