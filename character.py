@@ -24,6 +24,7 @@ class player(object):
         self.down = False
         self.keys= pygame.key.get_pressed()
         self.spriteLoop = 0
+        self.fire=False
 
         #man=player(300,410,64,64)
     def draw(self,win):
@@ -44,7 +45,7 @@ class player(object):
             win.blit(downSprite[self.spriteLoop], (self.x,self.y))
             
         if self.left==False and self.right==False and self.up==False and self.down==False:
-            win.blit(stillFrame, (self.x,self.y))
+            win.blit(upSprite[self.spriteLoop], (self.x,self.y))
             self.left = False
             self.right = False
             self.up = False
@@ -81,5 +82,5 @@ class player(object):
             self.right = False
             self.up = False
             print ('',self.x,self.y)
+    
 
-        
