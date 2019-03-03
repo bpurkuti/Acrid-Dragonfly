@@ -1,5 +1,5 @@
 import pygame
-from spaceBackground import Star, SpaceBackground
+from imageSpaceBackground import Star, SpaceBackground
 from character import player
 import os
 
@@ -13,8 +13,7 @@ running = True
 screen = pygame.display.set_mode((winX, winY))
 clock = pygame.time.Clock()
 
-ast = Star(50, 50, 25, 3, (255, 255, 255, 30))
-bg = SpaceBackground(0.5, screen)
+bg = SpaceBackground(screen, 1, 0)
 
 p1= player(300,410,64,64)
 
@@ -23,7 +22,6 @@ while running:
     clock.tick(120)
 
     screen.fill((24,24,24))
-    ast.draw(screen)
 
     p1.draw(screen)
 

@@ -3,10 +3,10 @@ import pygame.gfxdraw
 import os
 
 #loading player sprites
-rightSprite = [pygame.image.load('Game Sprites/up1.png'), pygame.image.load('Game Sprites/up1.png'), pygame.image.load('Game Sprites/up1.png'),pygame.image.load('Game Sprites/up2.png') ]
-leftSprite = [pygame.image.load('up1.png'), pygame.image.load('up1.png'), pygame.image.load('up1.png')]
+rightSprite = [pygame.image.load('Game Sprites/right1.png'), pygame.image.load('Game Sprites/right2.png'), pygame.image.load('Game Sprites/right3.png'),pygame.image.load('Game Sprites/right2.png'),pygame.image.load('Game Sprites/right1.png')]
+leftSprite = [pygame.image.load('Game Sprites/left1.png'), pygame.image.load('Game Sprites/left2.png'), pygame.image.load('Game Sprites/left3.png'),pygame.image.load('Game Sprites/left2.png'),pygame.image.load('Game Sprites/left1.png')]
 upSprite= [pygame.image.load('Game Sprites/up1.png'), pygame.image.load('Game Sprites/up2.png'), pygame.image.load('Game Sprites/up3.png'),pygame.image.load('Game Sprites/up2.png'),pygame.image.load('Game Sprites/up1.png')]
-downSprite= [pygame.image.load('up1.png'), pygame.image.load('up1.png'), pygame.image.load('up1.png')]
+downSprite= [pygame.image.load('Game Sprites/down1.png'), pygame.image.load('Game Sprites/down2.png'), pygame.image.load('Game Sprites/down3.png'),pygame.image.load('Game Sprites/down2.png'),pygame.image.load('Game Sprites/down1.png')]
 stillFrame=pygame.image.load('up1.png')
 
 clock=pygame.time.Clock()
