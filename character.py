@@ -2,6 +2,7 @@ import pygame
 import pygame.gfxdraw
 import os
 
+
 #loading player sprites
 rightSprite = [pygame.image.load('gameSprites/right1.png'), pygame.image.load('gameSprites/right2.png'), pygame.image.load('gameSprites/right3.png'),pygame.image.load('gameSprites/right2.png'),pygame.image.load('gameSprites/right1.png')]
 leftSprite = [pygame.image.load('gameSprites/left1.png'), pygame.image.load('gameSprites/left2.png'), pygame.image.load('gameSprites/left3.png'),pygame.image.load('gameSprites/left2.png'),pygame.image.load('gameSprites/left1.png')]
@@ -29,20 +30,20 @@ class player(object):
     def draw(self,win):
 
         self.spriteLoop = (self.spriteLoop + 1) % 5
-        
+
         if self.left:
             win.blit(leftSprite[self.spriteLoop], (self.x,self.y)) #integer divison
-            
+
 
         if self.right:
-            win.blit(rightSprite[self.spriteLoop], (self.x,self.y)) 
+            win.blit(rightSprite[self.spriteLoop], (self.x,self.y))
 
         if self.up:
             win.blit(upSprite[self.spriteLoop], (self.x,self.y))
-            
+
         if self.down:
             win.blit(downSprite[self.spriteLoop], (self.x,self.y))
-            
+
         if self.left==False and self.right==False and self.up==False and self.down==False:
             win.blit(stillFrame, (self.x,self.y))
             self.left = False
@@ -65,7 +66,7 @@ class player(object):
             self.up = False
             self.down = False
             print ('',self.x,self.y)
-    
+
     def moveUp(self):
             self.y-=self.vel
             self.up=True
@@ -81,5 +82,3 @@ class player(object):
             self.right = False
             self.up = False
             print ('',self.x,self.y)
-
-        

@@ -8,11 +8,18 @@ from imageSpaceBackground import Star, SpaceBackground
 #Character/player class
 from character import player
 
+
 #initialize game
+pygame.mixer.init()
 pygame.init()
+
+pygame.mixer.music.load("BackSound.mp3")
+pygame.mixer.music.set_volume(0.8) # volume of the son
+pygame.mixer.music.play(-1)
 
 #Window Size
 (winX, winY) = (800, 600)
+
 
 #Create the window with aboce specs
 screen = pygame.display.set_mode((winX, winY))
@@ -56,7 +63,7 @@ while running:
             print ("R")
 
     elif (keys[pygame.K_a] or keys[pygame.K_LEFT]):
-        if p1.x>=p1.vel:   
+        if p1.x>=p1.vel:
             p1.moveLeft()
             print ("L")
 
@@ -75,8 +82,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        
-        
+
+
 
     pygame.display.flip()
 
