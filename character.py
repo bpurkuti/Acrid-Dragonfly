@@ -3,9 +3,9 @@ import pygame.gfxdraw
 import os
 
 #loading player sprites
-rightSprite = [pygame.image.load('up1.png'), pygame.image.load('up1.png'), pygame.image.load('up1.png')]
+rightSprite = [pygame.image.load('Game Sprites/up1.png'), pygame.image.load('Game Sprites/up1.png'), pygame.image.load('Game Sprites/up1.png'),pygame.image.load('Game Sprites/up2.png') ]
 leftSprite = [pygame.image.load('up1.png'), pygame.image.load('up1.png'), pygame.image.load('up1.png')]
-upSprite= [pygame.image.load('up1.png'), pygame.image.load('up1.png'), pygame.image.load('up1.png')]
+upSprite= [pygame.image.load('Game Sprites/up1.png'), pygame.image.load('Game Sprites/up2.png'), pygame.image.load('Game Sprites/up3.png'),pygame.image.load('Game Sprites/up2.png'),pygame.image.load('Game Sprites/up1.png')]
 downSprite= [pygame.image.load('up1.png'), pygame.image.load('up1.png'), pygame.image.load('up1.png')]
 stillFrame=pygame.image.load('up1.png')
 
@@ -17,7 +17,7 @@ class player(object):
         self.y = y
         self.width = width
         self.height = height
-        self.vel = 5
+        self.vel = 10
         self.left = False
         self.right = False
         self.up = False
@@ -27,26 +27,20 @@ class player(object):
         #man=player(300,410,64,64)
     def draw(self,win):
         if self.left:
-            #win.blit(leftSprite[3], (self.x,self.y)) #integer divison
-            pygame.gfxdraw.box(win, pygame.Rect(self.x,self.y,self.width,self.height), (250,0,0))
+            win.blit(leftSprite[1], (self.x,self.y)) #integer divison
             
 
         elif self.right:
-            #win.blit(rightSprite[3], (self.x,self.y))
-            pygame.gfxdraw.box(win, pygame.Rect(self.x,self.y,self.width,self.height), (0,250,0))
-            
+            win.blit(rightSprite[1], (self.x,self.y)) 
 
         elif self.up:
-           # win.blit(upSprite[3], (self.x,self.y))
-            pygame.gfxdraw.box(win, pygame.Rect(self.x,self.y,self.width,self.height), (1,7,7))
+            win.blit(upSprite[4], (self.x,self.y))
             
         elif self.down:
-            #win.blit(downSprite[3], (self.x,self.y))
-            pygame.gfxdraw.box(win, pygame.Rect(self.x,self.y,self.width,self.height), (170,80,32))
+            win.blit(downSprite[1], (self.x,self.y))
             
         else:
-            #win.blit(stillFrame, (self.x,self.y))
-            pygame.gfxdraw.box(win, pygame.Rect(self.x,self.y,self.width,self.height), (250,0,250))
+            win.blit(stillFrame, (self.x,self.y))
             self.left = False
             self.right = False
             self.up = False
