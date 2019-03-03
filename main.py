@@ -20,7 +20,7 @@ screen = pygame.display.set_mode((winX, winY))
 clock = pygame.time.Clock()
 
 #initialzing the Objects
-scoreB = ScoreBoard(100, 100)
+scoreB = ScoreBoard(0,0)
 score = 0
 scoreB.setScore(score)
 
@@ -53,21 +53,27 @@ while running:
         if keys[pygame.K_ESCAPE]:
             running = False
         #PlayerMovements + Boundaries: Right, Left, Up, and Down
-        if p1.x<=winX-p1.width-p1.vel and (keys[pygame.K_d] or p1.keys[pygame.K_RIGHT]):
-            p1.moveRight()
-            print ("R")
+        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]):
+            if p1.x<=winX - p1.width - p1.vel:
+                p1.moveRight()
+                print ("R")
 
-        if p1.x>=10 and (keys[pygame.K_a] or p1.keys[pygame.K_LEFT]):
-            p1.moveLeft()
-            print ("L")
+        elif (keys[pygame.K_a] or keys[pygame.K_LEFT]):
+            if p1.x>=p1.vel:   
+                p1.moveLeft()
+                print ("L")
 
-        if p1.x>=10 and (keys[pygame.K_w] or p1.keys[pygame.K_UP]):
-            p1.moveUp()
-            print ("U")
+        elif (keys[pygame.K_w] or keys[pygame.K_UP]):
+            if p1.y>=p1.vel:
+                p1.moveUp()
+                print ("U")
 
-        if p1.x>=10 and (keys[pygame.K_s] or p1.keys[pygame.K_DOWN]):
-            p1.moveDown()
-            print ("D")
+        elif (keys[pygame.K_s] or keys[pygame.K_DOWN]):
+            if p1.y<=winY - p1.height - p1.vel:
+                p1.moveDown()
+                print ("D")
+        else:
+            print ("still")
 
     pygame.display.flip()
 

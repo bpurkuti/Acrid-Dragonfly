@@ -30,34 +30,34 @@ class player(object):
             win.blit(leftSprite[1], (self.x,self.y)) #integer divison
             
 
-        elif self.right:
+        if self.right:
             win.blit(rightSprite[1], (self.x,self.y)) 
 
-        elif self.up:
+        if self.up:
             win.blit(upSprite[4], (self.x,self.y))
             
-        elif self.down:
+        if self.down:
             win.blit(downSprite[1], (self.x,self.y))
             
-        else:
+        if self.left==False and self.right==False and self.up==False and self.down==False:
             win.blit(stillFrame, (self.x,self.y))
             self.left = False
             self.right = False
             self.up = False
             self.down = False
 
-    def moveRight(self):
-            self.x+=self.vel
-            self.right=True
-            self.left = False
-            self.up = False
-            self.down = False
-            print ('',self.x,self.y)
-
     def moveLeft(self):
             self.x-=self.vel
             self.left=True
             self.right = False
+            self.up = False
+            self.down = False
+            print ('',self.x,self.y)
+
+    def moveRight(self):
+            self.x+=self.vel
+            self.right=True
+            self.left = False
             self.up = False
             self.down = False
             print ('',self.x,self.y)
