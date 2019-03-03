@@ -10,14 +10,18 @@ from character import player
 from Projectiles import projectile
 
 white=(250,250,250)
+
 #initialize game
 pygame.init()
+pygame.mixer.init()
+pygame.mixer.music.load('BackSound.mp3')
+pygame.mixer.music.set_volume(0.2) # volume of the son
+pygame.mixer.music.play(-1)
 
 #Window Size
 (winX, winY) = (800, 600)
-
-#Create the window with aboce specs
 screen = pygame.display.set_mode((winX, winY))
+
 #clock used for fps
 clock = pygame.time.Clock()
 
@@ -27,7 +31,7 @@ score = 0
 scoreB.setScore(score)
 bg = SpaceBackground(screen, 2, 0)
 p1= player(300, 410, 64, 64)
-b1= projectile(5, 8, 6,(250,250,250), -1)
+b1= projectile(5, 8,32,32, 6,(250,250,250), -1)
 bullets=[]
 
 running = True
