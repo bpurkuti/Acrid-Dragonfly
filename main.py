@@ -13,7 +13,7 @@ from character import player
 pygame.init()
 
 pygame.mixer.init()
-pygame.mixer.music.load('BackSound.mp3')
+pygame.mixer.music.load('Space2.mp3')
 pygame.mixer.music.set_volume(0.2) # volume of the son
 pygame.mixer.music.play(-1)
 
@@ -38,7 +38,7 @@ p1= player(300,410,64,64)
 running = True
 while running:
     #FPS
-    clock.tick(30)
+    clock.tick(60)
 
     screen.fill((24,24,24))
 
