@@ -9,11 +9,11 @@ ASSETS = {
         'asteroids': {}
     }
 }
-ASSETS['images']['stars']['raw'] = [pygame.image.load('star_red.bmp')]
-ASSETS['images']['stars']['sizes'] = ((16, 16), (24, 24), (32, 32), (40, 40), (48, 48))
+ASSETS['images']['stars']['raw'] = [pygame.image.load('star_blue.bmp'), pygame.image.load('star_red.bmp')]
+ASSETS['images']['stars']['sizes'] = ((16, 16), (24, 24), (32, 32))
 ASSETS['images']['stars']['trans'] = []
 
-ASSETS['images']['asteroids']['raw'] = [pygame.image.load('star_blue.bmp')]
+ASSETS['images']['asteroids']['raw'] = [pygame.image.load('asteroid.bmp')]
 ASSETS['images']['asteroids']['sizes'] = ((16, 16), (24, 24), (32, 32), (40, 40), (48, 48))
 ASSETS['images']['asteroids']['trans'] = []
 
@@ -73,12 +73,16 @@ class SpaceBackground(object):
                 image = self.SCALED_ASSETS['images']['stars']['trans'][i]
                 size = (image['size'][0] * self.scale, image['size'][0] * self.scale)
                 size = (int(size[0]), int(size[1]))
-                self.SCALED_ASSETS['images']['stars']['trans'][i] = {'image': pygame.transform.scale(image['image'], size), 'size': size}
+                image = pygame.transform.scale(image['image'], size)
+                image = pygame.transform.rotate(image, random.randint(0, 359))
+                self.SCALED_ASSETS['images']['stars']['trans'][i] = {'image': image, 'size': size}
             for i in range(0, len(self.SCALED_ASSETS['images']['asteroids']['trans'])):
                 image = self.SCALED_ASSETS['images']['asteroids']['trans'][i]
                 size = (image['size'][0] * self.scale, image['size'][0] * self.scale)
                 size = (int(size[0]), int(size[1]))
-                self.SCALED_ASSETS['images']['asteroids']['trans'][i] = {'image': pygame.transform.scale(image['image'], size), 'size': size}
+                image = pygame.transform.scale(image['image'], size)
+                image = pygame.transform.rotate(image, random.randint(0, 359))
+                self.SCALED_ASSETS['images']['asteroids']['trans'][i] = {'image': image, 'size': size}
 
         # ------------ INNER SETTINGS ------------
 
@@ -87,12 +91,12 @@ class SpaceBackground(object):
         self.starCount = 30
 
         # velocity range of items
-        self.velAsteroidBound = (10, 30)
-        self.velStarBound = (5, 9)
+        self.velAsteroidBound = (6, 9)
+        self.velStarBound = (3, 6)
 
         # opacity range of items
         self.opAsteroidBound = (100, 120)
-        self.opStarBound = (50, 80)
+        self.opStarBound = (40, 60)
 
         # limit respawn of items
         self.asteroidAddWait = 10

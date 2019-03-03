@@ -4,7 +4,7 @@ from imageSpaceBackground import Star, SpaceBackground
 
 pygame.init()
 
-WIN_SPEC = (1200, 800)
+WIN_SPEC = (2000, 1600)
 
 running = True
 
@@ -15,7 +15,7 @@ scoreB = ScoreBoard(100, 100)
 score = 0
 scoreB.setScore(score)
 
-bg = SpaceBackground(screen, 1, 0)
+bg = SpaceBackground(screen, 2, 0)
 
 while running:
 
