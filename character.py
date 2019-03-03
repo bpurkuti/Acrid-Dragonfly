@@ -2,6 +2,7 @@ import pygame
 import pygame.gfxdraw
 import os
 
+
 #loading player sprites
 rightSprite = [pygame.image.load('Game Sprites/right1.png'), pygame.image.load('Game Sprites/right2.png'), pygame.image.load('Game Sprites/right3.png'),pygame.image.load('Game Sprites/right2.png'),pygame.image.load('Game Sprites/right1.png')]
 leftSprite = [pygame.image.load('Game Sprites/left1.png'), pygame.image.load('Game Sprites/left2.png'), pygame.image.load('Game Sprites/left3.png'),pygame.image.load('Game Sprites/left2.png'),pygame.image.load('Game Sprites/left1.png')]
@@ -28,17 +29,17 @@ class player(object):
     def draw(self,win):
         if self.left:
             win.blit(leftSprite[1], (self.x,self.y)) #integer divison
-            
+
 
         elif self.right:
-            win.blit(rightSprite[1], (self.x,self.y)) 
+            win.blit(rightSprite[1], (self.x,self.y))
 
         elif self.up:
             win.blit(upSprite[4], (self.x,self.y))
-            
+
         elif self.down:
             win.blit(downSprite[1], (self.x,self.y))
-            
+
         else:
             win.blit(stillFrame, (self.x,self.y))
             self.left = False
@@ -61,7 +62,7 @@ class player(object):
             self.up = False
             self.down = False
             print ('',self.x,self.y)
-    
+
     def moveUp(self):
             self.y-=self.vel
             self.up=True
@@ -77,5 +78,3 @@ class player(object):
             self.right = False
             self.up = False
             print ('',self.x,self.y)
-
-        

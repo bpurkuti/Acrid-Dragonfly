@@ -8,9 +8,12 @@ from imageSpaceBackground import Star, SpaceBackground
 #Character/player class
 from character import player
 
+from enemy import Enemy1
+
 #initialize game
 pygame.init()
 
+e1= Enemy1(300,410,64,64)
 #Window Size
 (winX, winY) = (800, 600)
 
@@ -47,7 +50,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        
+
         keys= pygame.key.get_pressed()
         #Escape to exit
         if keys[pygame.K_ESCAPE]:
