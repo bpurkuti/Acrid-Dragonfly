@@ -14,7 +14,7 @@ ASSETS['images']['stars']['sizes'] = ((16, 16), (24, 24), (32, 32))
 ASSETS['images']['stars']['trans'] = []
 
 ASSETS['images']['asteroids']['raw'] = [pygame.image.load('asteroid.bmp')]
-ASSETS['images']['asteroids']['sizes'] = ((16, 16), (24, 24), (32, 32), (40, 40), (48, 48))
+ASSETS['images']['asteroids']['sizes'] = ((16, 16), (24, 24), (32, 32), (40, 40))
 ASSETS['images']['asteroids']['trans'] = []
 
 for raw_image in ASSETS['images']['stars']['raw']:
@@ -91,12 +91,12 @@ class SpaceBackground(object):
         self.starCount = 30
 
         # velocity range of items
-        self.velAsteroidBound = (6, 9)
-        self.velStarBound = (3, 6)
+        self.velAsteroidBound = (2,4)
+        self.velStarBound = (2,4)
 
         # opacity range of items
-        self.opAsteroidBound = (100, 120)
-        self.opStarBound = (40, 60)
+        self.opAsteroidBound = (30, 50)
+        self.opStarBound = (30, 50)
 
         # limit respawn of items
         self.asteroidAddWait = 10
