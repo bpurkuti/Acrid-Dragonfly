@@ -10,10 +10,10 @@ from character import player
 
 
 #initialize game
-pygame.mixer.init()
 pygame.init()
 
-pygame.mixer.music.load("BackSound.mp3")
+pygame.mixer.init()
+pygame.mixer.music.load('ZS.mp3')
 pygame.mixer.music.set_volume(0.8) # volume of the son
 pygame.mixer.music.play(-1)
 
