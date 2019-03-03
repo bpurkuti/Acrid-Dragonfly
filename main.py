@@ -1,91 +1,68 @@
-#import libraries and Objects from different files
 import pygame
-import os
-#ScoreBoard tracks and presents Score in the GameScreen
-from scoreBoard import ScoreBoard
-#The Background for the game, consisting of stars and asteroids
-from imageSpaceBackground import Star, SpaceBackground
-#Character/player class
-from character import player
+from screens import SpaceBackground, FinishScreen, ScoreBoard, StartScreen
 
-
-#initialize game
 pygame.init()
 
 pygame.mixer.init()
-pygame.mixer.music.load('BackSound.mp3')
+<<<<<<< Updated upstream
+pygame.mixer.music.load('Space2.mp3')
 pygame.mixer.music.set_volume(0.2) # volume of the son
+=======
+pygame.mixer.music.load('music/Space2.mp3')
+pygame.mixer.music.set_volume(0.2)
+>>>>>>> Stashed changes
 pygame.mixer.music.play(-1)
 
-#Window Size
-(winX, winY) = (800, 600)
+WIN_SPEC = (800, 600)
 
+running = True
 
-#Create the window with aboce specs
-screen = pygame.display.set_mode((winX, winY))
-#clock used for fps
+screen = pygame.display.set_mode(WIN_SPEC)
 clock = pygame.time.Clock()
 
-#initialzing the Objects
-scoreB = ScoreBoard(0,0)
+scoreB = ScoreBoard(25, 25, 36)
 score = 0
 scoreB.setScore(score)
 
-bg = SpaceBackground(screen, 2, 0)
+bg = SpaceBackground(screen, 1, 0)
 
-p1= player(300,410,64,64)
+def logClick():
+    print('clicked')
 
-running = True
+def quit():
+    global running
+    running = False
+
+
+
+sn = StartScreen(screen, logClick)
+fn = FinishScreen(screen, 10000000000000, logClick, quit)
+
 while running:
+<<<<<<< Updated upstream
     #FPS
+    clock.tick(60)
+=======
+
     clock.tick(30)
+>>>>>>> Stashed changes
 
     screen.fill((24,24,24))
 
-    #drawing ScoreBoard
     score = score + 1
     scoreB.setScore(score)
     scoreB.draw(screen)
     bg.updateItems()
-
-    #drawing player
-    p1.draw(screen)
-
-    keys= pygame.key.get_pressed()
-
-    #Escape to exit
-    if keys[pygame.K_ESCAPE]:
-        running = False
-    #PlayerMovements + Boundaries: Right, Left, Up, and Down
-    if (keys[pygame.K_d] or keys[pygame.K_RIGHT]):
-        if p1.x<=winX - p1.width - p1.vel:
-            p1.moveRight()
-            print ("R")
-
-    elif (keys[pygame.K_a] or keys[pygame.K_LEFT]):
-        if p1.x>=p1.vel:
-            p1.moveLeft()
-            print ("L")
-
-    elif (keys[pygame.K_w] or keys[pygame.K_UP]):
-        if p1.y>=p1.vel:
-            p1.moveUp()
-            print ("U")
-
-    elif (keys[pygame.K_s] or keys[pygame.K_DOWN]):
-        if p1.y<=winY - p1.height - p1.vel:
-            p1.moveDown()
-            print ("D")
-    else:
-        print ("still")
-
+    #fn.draw()
+    sn.draw()
     for event in pygame.event.get():
+        if(event.type == pygame.MOUSEBUTTONUP or event.type == pygame.MOUSEBUTTONDOWN):
+            position = pygame.mouse.get_pos()
+            #fn.handleClick(position, event.type)
+            sn.handleClick(position, event.type)
         if event.type == pygame.QUIT:
             running = False
 
-
-
     pygame.display.flip()
-
 
 pygame.quit()
