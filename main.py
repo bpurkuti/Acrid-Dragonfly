@@ -13,8 +13,8 @@ from character import player
 pygame.init()
 
 pygame.mixer.init()
-pygame.mixer.music.load('ZS.mp3')
-pygame.mixer.music.set_volume(0.8) # volume of the son
+pygame.mixer.music.load('Space2.mp3')
+pygame.mixer.music.set_volume(0.2) # volume of the son
 pygame.mixer.music.play(-1)
 
 #Window Size

@@ -1,6 +1,8 @@
 import pygame
 import pygame.gfxdraw
 import os
+import sys
+import time
 
 
 #loading player sprites
