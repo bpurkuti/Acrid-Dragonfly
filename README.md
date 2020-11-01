@@ -1,5 +1,6 @@
 
-Hack Merced 2019
+Hack Merced 2019  
+
 Team: Acrid Dragonfly  
 
 Description: Bullet Hell themed game made in Hack Merced 2019 Hackathon. The game is set in space and has a horde of enemies rushing at you.
