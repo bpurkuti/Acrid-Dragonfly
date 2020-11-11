@@ -1,4 +1,6 @@
-A Space Invader game where you play as a Space Dragonfly
+Space Invader Game.. 
+..where you play as a Space Dragonfly
+
 Hack Merced 2019  
 
 Team: Acrid Dragonfly  
