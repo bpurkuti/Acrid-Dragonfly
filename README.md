@@ -1,4 +1,4 @@
-Space Invader Game.. 
+Space Invader Game..   
 ..where you play as a Space Dragonfly
 
 Hack Merced 2019  
