@@ -23,7 +23,3 @@ Requires python and pygames module to run
 =======
 =======
 # acriddragonfly
-jaiem
-eshant
->>>>>>> Stashed changes
->>>>>>> Stashed changes
