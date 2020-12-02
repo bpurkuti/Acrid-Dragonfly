@@ -1,4 +1,4 @@
-#  [alt text](https://github.com/bpurkuti/Acrid-Dragonfly/blob/master/up1.png) Acrid Dragonfly ![alt text](https://github.com/bpurkuti/Acrid-Dragonfly/blob/master/up1.png)
+#  ![alt text](https://github.com/bpurkuti/Acrid-Dragonfly/blob/master/up1.png) Acrid Dragonfly ![alt text](https://github.com/bpurkuti/Acrid-Dragonfly/blob/master/up1.png)
 
 Space Invader Game where you play as a Space Dragonfly
 
