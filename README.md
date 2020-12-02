@@ -1,4 +1,5 @@
-# Acrid Dragonfly
+# Acrid Dragonfly ![alt text](https://github.com/bpurkuti/Acrid-Dragonfly/blob/master/up1.png)
+
 Space Invader Game where you play as a Space Dragonfly
 
 Hack Merced 2019  
